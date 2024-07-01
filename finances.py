@@ -1,11 +1,8 @@
 from crud import read_csv
 from tabulate import tabulate
 from params import params
-import datetime
-<<<<<<< Updated upstream
 
-=======
->>>>>>> Stashed changes
+
 debts_path = f'files/{params[3]['name']}'
 restourant_path = f'files/{params[4]['name']}'
 
@@ -42,16 +39,10 @@ def get_financial_report(option):
             filtered_list.append(unpaid)
     print(tabulate(filtered_list, tablefmt='fancy_grid', headers='keys'))
     
-def get_report_with_date(start_date, end_date):
+def get_financial_report(start_date, end_date):
     debts = read_csv(debts_path)
     unpaid_list = []
 
-<<<<<<< Updated upstream
-=======
-    start_date = datetime.strptime(start_date, '%Y-%m-%d')
-    end_date = datetime.strptime(end_date, '%Y-%m-%d')
-
->>>>>>> Stashed changes
     for data in debts:
         report = {}
         unpaid = data['unpaid']
@@ -60,15 +51,8 @@ def get_report_with_date(start_date, end_date):
         balance = read_csv(restourant_path)[0]['budget']
         unpaid_amount = float(unpaid)
         paid_amount = float(paid)
-<<<<<<< Updated upstream
         
-        # Filter by date range (assuming dates are in the format 'YYYY-MM-DD')
         if start_date <= date <= end_date:
-=======
-        date_obj = datetime.strptime(date, '%Y-%m-%d')
-        
-        if start_date <= date_obj <= end_date:
->>>>>>> Stashed changes
             if paid_amount == 0:
                 status = 'Unpaid'
             elif paid_amount < unpaid_amount:
@@ -96,11 +80,5 @@ def get_report_with_date(start_date, end_date):
 
     return overall_info
 
-
-<<<<<<< Updated upstream
-get_report_with_date('01-07-2023','31-07-2023')
-=======
-get_report_with_date('01-07-2023','01-07-2023')
->>>>>>> Stashed changes
 # get_financial_report('Enter which status do you want (paid, unpaid, in progress) or nothing to see all: ')
     
