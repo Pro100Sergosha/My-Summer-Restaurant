@@ -55,7 +55,6 @@ departments = {
                                 'give order to client'
                                 'get payment',
                                 'back'
-
                                 ],
         'log out':None
         }
@@ -87,6 +86,10 @@ parametres = [
     {
         'name': 'invoices.csv', #5
         'headers': ['date', 'distributor name', 'product', 'measure unit', 'quantity', 'one item price', 'total price']
+    },
+    {
+        "name":"done_orders.csv", #6
+        "headers":["id","table","order","quantity","price","status order","status payment"]
     },
     {
         "name":"restoraunt_parametres.csv", #-1
@@ -147,7 +150,7 @@ def tasks_(task,path):
     from creator import file_creator, restoraunt_parametres_changer,user_deleter
     from registrator import users_creator, edit_user
     from kitchen import new_dish, dish_editor_deleter,give_order_to_waiter
-    from waiters import get_order,give_order_kitchen
+    from waiters import get_order,give_order_kitchen,get_order_from_kitchen
     while True: 
         if task in ["back"]:
             return False
@@ -201,11 +204,10 @@ def tasks_(task,path):
             function = give_order_to_waiter(path)  
         elif task == "get order":
             function = get_order(path)
-            pass  
         elif task == "add order to kitchen":
-            pass        
+            function = give_order_kitchen(path)      
         elif task == "get order from kitchen":
-            pass  
+            function = get_order_from_kitchen(path)  
         elif task == "give order to client":
             pass  
         elif task == "get payment":

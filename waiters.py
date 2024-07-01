@@ -19,7 +19,7 @@ def get_order(path):
         quantity = number_validator("enter dish quantity: ",int)
         price = float(one_item_price) * quantity
         status_order = "in process"
-        status_payment = "in process"
+        status_payment = "unpaid"
         data.append({"id":id,"table":table,"order":dish,"quantity":quantity,"price":price,"status order":status_order,"status payment":status_payment})
         write_csv(f'{path}/{parametres[3]["name"]}',data)
         quesiton = repeat_back()
@@ -80,6 +80,45 @@ def give_order_kitchen(path):
     from user_input_validator import repeat_back
     while True:
         menu = read_csv(f'{path}/{parametres[3]["name"]}')
-        print(tabulate(menu,headers="keys"))
+        printer = []
+        for dish in menu:
+            if dish["status order"] != "done":
+                printer.append(dish)
+        print(tabulate(printer,headers="keys"))
         quesiton = repeat_back()
         return quesiton
+
+def add_order_to_kitchen(path):
+    from user_input_validator import repeat_back
+    while True:
+        menu = read_csv(f'{path}/{parametres[3]["name"]}')
+        done_order = read_csv(f'{path}/{parametres[6]["name"]}')
+        for dish in menu:
+            if dish["status order"] == "done":
+                done_order.append(dish)
+        write_csv(f'{path}/{parametres[6]["name"]}',menu)
+        print(tabulate(done_order,headers="keys"))
+        quesiton = repeat_back()
+        return quesiton       
+
+
+
+def get_order_from_kitchen(path):
+    from user_input_validator import repeat_back
+    while True:
+        menu = read_csv(f'{path}/{parametres[3]["name"]}')
+        done_order = read_csv(f'{path}/{parametres[6]["name"]}')
+        for dish in menu:
+            if dish["status order"] == "done":
+                done_order.append(dish)
+        write_csv(f'{path}/{parametres[6]["name"]}',menu)
+        print(tabulate(done_order,headers="keys"))
+        quesiton = repeat_back()
+        return quesiton    
+    
+
+
+def give_order_to_client(path):
+    while True:
+        menu = read_csv(f'{path}/{parametres[3]["name"]}')
+        user_input = input("which table are you giving order? \n ")
