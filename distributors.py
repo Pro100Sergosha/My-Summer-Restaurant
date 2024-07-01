@@ -8,6 +8,7 @@ distributor_path = f'files/{params[0]['name']}'
 def create_new_distributor(input_texts):
     while True:
         inputs = {}
+        input_texts = ['Enter company id: ', 'Enter company name: ', 'Enter company address: ','Etner distributor name: ','Enter distributor phone number: ']
         for inp in input_texts:
             txt = input(inp)
             validated_data = validate_distributor_inputs(txt, input_texts, inp)
@@ -22,8 +23,4 @@ def create_new_distributor(input_texts):
 
 
 # if __name__ == '__main__':
-#     create_new_distributor(['Enter company id: ', 
-#                            'Enter company name: ', 
-#                            'Enter company address: ',
-#                            'Etner distributor name: ',
-#                            'Enter distributor phone number: '])
+#     create_new_distributor()

@@ -39,46 +39,48 @@ def get_financial_report(option):
             filtered_list.append(unpaid)
     print(tabulate(filtered_list, tablefmt='fancy_grid', headers='keys'))
     
-def get_financial_report(start_date, end_date):
+def date_to_int(date_str):
+    day, month, year = map(int, date_str.split('-'))
+    return year * 10000 + month * 100 + day
+
+def get_report_with_date():
     debts = read_csv(debts_path)
-    unpaid_list = []
+    balance = float(read_csv(restourant_path)[0]['budget'])
+
+    total_unpaid = 0
+    total_paid = 0
+    start_date = input('Enter start date: ')
+    end_date = input('Enter end date: ')
+    start_date_int = date_to_int(start_date)
+    end_date_int = date_to_int(end_date)
 
     for data in debts:
-        report = {}
         unpaid = data['unpaid']
         paid = data['paid']
         date = data['date']
-        balance = read_csv(restourant_path)[0]['budget']
-        unpaid_amount = float(unpaid)
-        paid_amount = float(paid)
         
-        if start_date <= date <= end_date:
-            if paid_amount == 0:
-                status = 'Unpaid'
-            elif paid_amount < unpaid_amount:
-                status = 'In Progress'
-            else:
-                status = 'Paid'
-            report['date'] = date
-            report['unpaid'] = unpaid
-            report['paid'] = paid
-            report['status'] = status
-            report['balance'] = balance
-            unpaid_list.append(report)
-
-    print(tabulate(unpaid_list, tablefmt='fancy_grid', headers='keys'))
+        date_int = date_to_int(date)
     
-    total_unpaid = sum(float(report['unpaid']) for report in unpaid_list)
-    total_paid = sum(float(report['paid']) for report in unpaid_list)
-    total_balance = read_csv(restourant_path)[0]['budget']
+        if start_date_int <= date_int <= end_date_int:
+            unpaid_amount = float(unpaid)
+            paid_amount = float(paid)
+            
+            total_unpaid += unpaid_amount
+            total_paid += paid_amount
 
     overall_info = {
+        'start_date': start_date,
+        'end_date': end_date,
         'total_unpaid': total_unpaid,
         'total_paid': total_paid,
-        'total_balance': total_balance
+        'total_balance': balance,
+        'income': 0
     }
 
-    return overall_info
+    return print(tabulate([overall_info], headers='keys'))
+
+
+# get_report_with_date('01-07-2023', '01-07-2023')
 
 # get_financial_report('Enter which status do you want (paid, unpaid, in progress) or nothing to see all: ')
     
