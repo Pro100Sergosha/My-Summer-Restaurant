@@ -18,7 +18,3 @@ def write_csv(filename,data):
         for line in data:
             write.writerow(line)
 
-
-
-
-

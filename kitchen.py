@@ -7,7 +7,7 @@ from tabulate import tabulate
 def new_dish(path):
     # კერძის შესაქმენლად ვიყენებ
     # data = read_csv(f'{path}/{parametres[2]["name"]}')
-    dish_name = name_validator("enter dish name: ")
+    dish_name = name_validator("enter dish name: ").title().strip()
     while True:
         data = read_csv(f'{path}/{parametres[2]["name"]}')
         temp_dict ={"dish":dish_name}
@@ -47,7 +47,7 @@ def product_getter(path):
     printer = [product for product in products]
     print(tabulate(printer,headers="keys"))
     while True:
-        ingredient = name_validator("enter ingredient: ").title()
+        ingredient = name_validator("enter ingredient: ").title().strip()
         for product in products:
             if product["product"] == ingredient:
                 return ingredient
@@ -103,48 +103,48 @@ def unit_getter(path,ingredient):
 def dish_editor_deleter(path,txt,option=False):
     data = read_csv(f'{path}/{parametres[2]["name"]}')
     print(tabulate(data,headers="keys"))
+    
     while True:
-        user_input = input(f"Enter dish to {txt}: ")
-        delete = lambda d: d["dish"] == user_input
-        if any(delete(d) for d in data):
-            delete_list = [i for i in data if not delete(i)]
-            if option:
-                dish_name = name_validator("enter dish name: ")
-                temp_dict ={"dish":dish_name}
-                temp_dict.update(dish_registrator(path))
-                delete_list.append(temp_dict)
-            print(tabulate(delete_list,headers="keys"))
-            write_csv(f'{path}/{parametres[2]["name"]}',delete_list)
-            quesiton = repeat_back()
-            return quesiton
-        else:
-            print("dish isnot in list")
 
+        user_input = input(f"Enter dish to {txt}: ").title()
+        for item in data:
+            if item["dish"] == user_input:
+                while True:
+                    delete = lambda d: d["dish"] == user_input
+                    if any(delete(d) for d in data):
+                        delete_list = [i for i in data if not delete(i)]
+                        if option:
+                            dish_name = name_validator("enter dish name: ").title()
+                            temp_dict ={"dish":dish_name}
+                            temp_dict.update(dish_registrator(path))
+                            delete_list.append(temp_dict)
+                        print(tabulate(delete_list,headers="keys"))
+                        write_csv(f'{path}/{parametres[2]["name"]}',delete_list)
+                        quesiton = repeat_back()
+                        return quesiton               
+        
+        print("there is not dish in the list")
+        return False
 
 
  
-            
+
+
+def give_order_to_waiter(path):
+    while True:
+        menu = read_csv(f'{path}/{parametres[3]["name"]}')
+        print(tabulate(menu,headers="keys"))
+        user_input = number_validator("enter dish id: ",str)
+        for dish in menu:
+            if user_input == dish["id"]:
+                dish["status order"] = "done"
+        write_csv(f'{path}/{parametres[3]["name"]}',menu)
+        quesiton = repeat_back()
+        return quesiton    
 
 
 
 
 
-def menu_printer(path):
-    dishes = read_csv(f'{path}/{parametres[2]["name"]}')
-    warehouse = read_csv(f'{path}/{parametres[1]["name"]}')
-    para = read_csv(f'{path}/{parametres[-1]["name"]}')
 
-    current_figures = {}
-    for dish in dishes:
-        total_price = 0
-        for item in warehouse:
-            if dish["product"] == item["product"]:
-                raw_price = float(dish["quantity"]) * float(item["one item price"])
-                total_price += raw_price + (raw_price*float(para[0]["margin"])/100) + (raw_price*float(para[0]["comission"])/100)
-                current_figures[dish["dish"]] = current_figures.get(dish["dish"],0)+total_price
-    print(current_figures)
 
-    printer = [{"dish":item,"one item price":current_figures[item],"Service Fee(included)":float(current_figures[item])*float(para[0]["comission"])/100} for item in current_figures]
-    # for item in current_figures:
-    #     printer.append({"dish":item,"one item price":current_figures[item]}) 
-    print(tabulate(printer,headers="keys"))

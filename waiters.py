@@ -7,28 +7,33 @@ from registrator import id_creator
 
 # "headers":["id","table","order","quantity","price","status order","status payment"]
 def get_order(path):
-    from user_input_validator import table_quantity_validator, number_validator
+    from user_input_validator import table_quantity_validator, number_validator,repeat_back
+    while True:
+        menu = menu_printer(path)
+        print(tabulate(menu,headers="keys"))
+        data = read_csv(f'{path}/{parametres[3]["name"]}')
+       
+        id = id_creator(data)
+        table = table_quantity_validator(path)
+        dish,one_item_price = get_dish_price(menu)
+        quantity = number_validator("enter dish quantity: ",int)
+        price = float(one_item_price) * quantity
+        status_order = "in process"
+        status_payment = "in process"
+        data.append({"id":id,"table":table,"order":dish,"quantity":quantity,"price":price,"status order":status_order,"status payment":status_payment})
+        write_csv(f'{path}/{parametres[3]["name"]}',data)
+        quesiton = repeat_back()
+        return quesiton
 
-    menu = menu_printer(path)
-    
-    data = read_csv(f'{path}/{parametres[3]["name"]}')
-    # menu_printer(path)
-    id = id_creator(data)
-    table = table_quantity_validator(path)
-    dish,one_item_price = get_dish_price(menu)
-    quantity = number_validator("enter dish quantity: ",int)
-    price = float(one_item_price) * quantity
-    status_order = ""
-    status_payment = ""
 
 
 def get_dish_price(menu):
     while True:
-        user_input = input("Enter dish: " ).title()
+        user_input = input("Enter dish: " )
         for dish in menu:
-            if dish["dish"] == user_input:
+            if user_input ==dish["dish"] :
                 return dish["dish"],dish["one item price"]
-
+        print("enter correct dish")
 
 
 
@@ -41,7 +46,7 @@ def get_dish_price(menu):
 
 def menu_printer(path):
     # მენიუს დასაბეჭდად თავის ფასთან და მომსახურების საკომისიოსთან ერთად
-    prices = read_csv(f'{path}/{parametres[6]["name"]}')
+    prices = []
     dishes = read_csv(f'{path}/{parametres[2]["name"]}')
     warehouse = read_csv(f'{path}/{parametres[1]["name"]}')
     para = read_csv(f'{path}/{parametres[-1]["name"]}')
@@ -64,5 +69,17 @@ def menu_printer(path):
             "service Fee(included)": round(current_figures[dish]*comission/100 ,2)
         }
         prices.append(menu_item)
-    write_csv(f'{path}/{parametres[6]["name"]}',prices)
-    
+    return prices
+
+
+
+
+
+def give_order_kitchen(path):
+    # მიცეს სამზარეილოს შეკვეთების სია
+    from user_input_validator import repeat_back
+    while True:
+        menu = read_csv(f'{path}/{parametres[3]["name"]}')
+        print(tabulate(menu,headers="keys"))
+        quesiton = repeat_back()
+        return quesiton

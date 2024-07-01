@@ -11,10 +11,9 @@ def main():
         print("welcome to application")
         path = folder_path()
         users_creator = file_info(path)
-        # '
-        # table_quantity_validator(f'{path}/{parametres[-1]["name"]}')
+
        
-        print(read_csv(f'{path}/{parametres[-1]["name"]}'))
+    
 
         if not users_creator:  
             create_admin(path)

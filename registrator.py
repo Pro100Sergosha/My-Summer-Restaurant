@@ -58,7 +58,7 @@ def id_creator(data):
     try:
         new_id = int(data[-1]["id"])+1
         return new_id
-    except IndexError:
+    except (IndexError, KeyError):
         return 1
 
 
@@ -105,7 +105,7 @@ def password_validator():
         else:print("Passwords don't match please re enter your password " ) 
 
 
-def role_validator():
+def role_validator(): 
     while True:
         user_input = input("choose role: \n1.admin\n2.accountant\n3.warehouse\n4.kitchen\n5.waiters\nEnter number: ")
         if user_input == "1":

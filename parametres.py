@@ -74,23 +74,19 @@ parametres = [
     },
     {
         "name":"dishes.csv", #2
-        "headers":["dish","product","measure unit","quantity","price"] #!!!!!!
+        "headers":["dish","product","measure unit","quantity","price"] 
     },
     {
         "name":"orders.csv", #3
         "headers":["id","table","order","quantity","price","status order","status payment"]
     },
     {
-        "name":"menu.csv", #4
-        "headers":["dish","price on per unit",]
+        "name":"menu_prices.csv", #4 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! es ar mchirdeba
+        "headers":["dish","price on per unit","service Fee(included)"]
     },
     {
         'name': 'invoices.csv', #5
         'headers': ['date', 'distributor name', 'product', 'measure unit', 'quantity', 'one item price', 'total price']
-    },
-    {   
-        'name': 'menu_prices.csv', #6
-        "headers":["dish","one item price","service Fee(included)"]
     },
     {
         "name":"restoraunt_parametres.csv", #-1
@@ -122,7 +118,7 @@ departments['warehouse'] = [
 
 departments['kitchen'] = [
     {
-
+        
         'kitchen management': departments['admin'][0]['kitchen management'],
         'waiters management': departments['admin'][0]['waiters management'],
         'log out':None
@@ -150,7 +146,8 @@ def tasks_(task,path):
 
     from creator import file_creator, restoraunt_parametres_changer,user_deleter
     from registrator import users_creator, edit_user
-    from kitchen import new_dish, dish_editor_deleter
+    from kitchen import new_dish, dish_editor_deleter,give_order_to_waiter
+    from waiters import get_order,give_order_kitchen
     while True: 
         if task in ["back"]:
             return False
@@ -199,13 +196,14 @@ def tasks_(task,path):
         elif task == "delete dish":
             function = dish_editor_deleter(path,"delete")
         elif task == "get orders":
-            pass 
+            function = give_order_kitchen(path)
         elif task == "give orders":
-            pass  
+            function = give_order_to_waiter(path)  
         elif task == "get order":
+            function = get_order(path)
             pass  
         elif task == "add order to kitchen":
-            pass 
+            pass        
         elif task == "get order from kitchen":
             pass  
         elif task == "give order to client":

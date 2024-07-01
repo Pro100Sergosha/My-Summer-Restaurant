@@ -25,7 +25,7 @@ def number_validator(text,type):
 
 def repeat_back():
     while True:
-        user_input = input("what would you like to do? (repeat/back): ").strip()
+        user_input = input("what would you like to do? (repeat/back): ").strip().lower()
         if user_input == "repeat":
             return True
         elif user_input == "back":
@@ -46,7 +46,7 @@ def table_quantity_validator(path):
             if user_input > int(data[0]["tables"]):
                 print("more than quantity")
             else:
-                question =repeat_back()
+                question = repeat_back()
                 if not question:
                     return user_input
         except:
