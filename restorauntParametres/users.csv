@@ -1,0 +1,4 @@
+id,name,email,password,role
+1,dato,,$2b$12$NJkiOQpyWu.zMMmVtFFWduUXyATyarq/GOlO.aqGYVJta987Jvfs6,admin
+2,gio,,b'$2b$12$a7uXb/KEh6lRbDaJVJT2Su106ODmOSucvAcmleCxBIwXQcRfJLMGW',kitchen
+3,fgfdfd,,$2b$12$6T8FTO4V2hiHRX6xaqoxSuoMUr5qanORB5LyBsLaFWzPQ2fx1LEV6,waiters
