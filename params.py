@@ -14,10 +14,10 @@ params = [
     },
     {
         'name': 'debts.csv',
-        'headers': ['date', 'distributor name', 'unpaid', 'paid']
+        'headers': ['date', 'distributor name', 'unpaid', 'paid', 'income']
     },
     {
         "name": "restoraunt_parametres.csv",
-        "headers":["tables","salary","margin","comission","budget"]
+        "headers":["tables", "salary", "margin", "comission", "budget"]
     }
 ]
