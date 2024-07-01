@@ -1,0 +1,4 @@
+id,table,order,quantity,price,status order,status payment
+1,2,khinkali,5,9.0,done,in process
+2,1,Cezari,1,2.25,done,in process
+3,1,khinkali,2,3.6,in process,in process
