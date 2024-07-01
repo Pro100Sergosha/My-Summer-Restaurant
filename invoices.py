@@ -29,6 +29,7 @@ def create_invoice_with_data(input_texts):
 def create_new_invoice(input_texts):
     while True:
         inputs = {}
+        input_texts = ['Enter date: ', 'Enter company name: ', 'Enter product name: ', 'Enter measure unit: ', 'Enter quantity: ', 'Enter one item price: ']
         for inp in input_texts:
             txt = input(inp)
             validated_data = validate_invoice_inputs(txt, input_texts, inp)
@@ -53,10 +54,5 @@ def create_new_invoice(input_texts):
         
             
 
-# if __name__ == '__main__':
-#     create_new_invoice(['Enter date: ', 
-#                         'Enter company name: ', 
-#                         'Enter product name: ', 
-#                         'Enter measure unit: ', 
-#                         'Enter quantity: ', 
-#                         'Enter one item price: '])
+if __name__ == '__main__':
+    create_new_invoice()

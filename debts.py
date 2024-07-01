@@ -59,18 +59,24 @@ def check_debt_amount(debts, debt, unpaid, paid):
             print('Invalid type!\nPlease enter only int or float numbers!')
 
 
-def pay_debt(input_date, input_distributor):
+def pay_debt():
     while True:
-        date = input(input_date)
-        distributor = input(input_distributor)
         debts = read_csv(debts_path)
-        print(len(debts))
+        balance = read_csv(balance_path)[0]['budget']
+        temp_list = []
+        for data in debts:
+            temp_debt = {key: data[key] for key in ['date', 'company name', 'unpaid', 'paid']}
+            temp_list.append(temp_debt)
+        print(tabulate(temp_list, headers='keys'))
+        date = input('Enter date: ')
+        distributor = input('Enter company name: ')
         for debt in debts:
             if debt['date'] == date and debt['company name'] == distributor:
                 date = debt['date']
                 distributor = debt['company name']
                 unpaid = float(debt['unpaid'])
                 paid = float(debt['paid'])
+                debt['balance'] = balance
                 table = [date, distributor, unpaid, paid]   
                 print(tabulate([table], tablefmt='grid', headers=debt.keys()))
                 new_debts = check_debt_amount(debts, debt, unpaid, paid)
@@ -87,5 +93,3 @@ def pay_salaries():
     else:
         return print('Not enough money')
     
-
-add_debt()
