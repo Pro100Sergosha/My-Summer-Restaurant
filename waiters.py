@@ -75,14 +75,14 @@ def menu_printer(path):
     warehouse = read_csv(f'{path}/{parametres[1]["name"]}')
     para = read_csv(f'{path}/{parametres[-1]["name"]}')
     margin = float(para[0]["margin"])
-    comission = float(para[0]["comission"])
+    # comission = float(para[0]["comission"])
     current_figures = {}
     for dish in dishes:
         total_price = 0
         for item in warehouse:
             if dish["product"] == item["product"]:
                 raw_price = float(dish["quantity"]) * float(item["one item price"])
-                total_price += raw_price + (raw_price*margin /100) + (raw_price*comission/100)
+                total_price += raw_price + (raw_price*margin /100) #+ (raw_price*comission/100)
                 current_figures[dish["dish"]] = current_figures.get(dish["dish"],0)+total_price
     
 
@@ -90,7 +90,7 @@ def menu_printer(path):
         menu_item = {
             "dish": dish,
             "one item price": round(current_figures[dish],2),
-            "service Fee(included)": round(current_figures[dish]*comission/100 ,2)
+            # "service Fee(included)": round(current_figures[dish]*comission/100 ,2)
         }
         prices.append(menu_item)
     return prices
@@ -225,23 +225,63 @@ def get_orders_from_waiters(path):
 #         quesiton = repeat_back()
 #         return quesiton    
 
-def give_order_to_waiter(path):
+# def give_order_to_waiter(path):
+#     from user_input_validator import repeat_back
+#     while True:
+#         order_to_kitchen = read_csv(f'{path}/{parametres[7]["name"]}')
+#         print(tabulate(order_to_kitchen,headers="keys"))
+#         order_to_waiter =  read_csv(f'{path}/{parametres[8]["name"]}')
+       
+#         user_input = id_validator(order_to_kitchen,"Enter id to give order to waiters: ")
+#         for dish in order_to_kitchen:
+#             if user_input == dish["id"]:
+#                 dish["status order"] = "done"
+#         new_list=[]
+#         data_appender(user_input,order_to_kitchen,order_to_waiter,new_list)
+#         write_csv(f'{path}/{parametres[7]["name"]}',new_list)
+#         write_csv(f'{path}/{parametres[8]["name"]}',order_to_waiter)
+#         quesiton = repeat_back()
+#         return quesiton
+
+
+
+
+
+
+
+
+7,8,"status order","done"
+
+
+def give_order_to_waiter_client(path,x,y,status_order_payment,status):
     from user_input_validator import repeat_back
     while True:
-        order_to_kitchen = read_csv(f'{path}/{parametres[7]["name"]}')
+        order_to_kitchen = read_csv(f'{path}/{parametres[x]["name"]}')
         print(tabulate(order_to_kitchen,headers="keys"))
-        order_to_waiter =  read_csv(f'{path}/{parametres[8]["name"]}')
+        order_to_waiter =  read_csv(f'{path}/{parametres[y]["name"]}')
        
         user_input = id_validator(order_to_kitchen,"Enter id to give order to waiters: ")
         for dish in order_to_kitchen:
             if user_input == dish["id"]:
-                dish["status order"] = "done"
+                dish[status_order_payment] = status
         new_list=[]
         data_appender(user_input,order_to_kitchen,order_to_waiter,new_list)
-        write_csv(f'{path}/{parametres[7]["name"]}',new_list)
-        write_csv(f'{path}/{parametres[8]["name"]}',order_to_waiter)
+        write_csv(f'{path}/{parametres[x]["name"]}',new_list)
+        write_csv(f'{path}/{parametres[y]["name"]}',order_to_waiter)
         quesiton = repeat_back()
         return quesiton
 
 
 # give_order_to_waiter("restorauntParametres")
+
+
+def get_order_from_kitchen(path):
+    from user_input_validator import repeat_back
+    order_to_waiter =  read_csv(f'{path}/{parametres[8]["name"]}')
+    print(tabulate(order_to_waiter,headers="keys"))
+    quesiton = repeat_back()
+    return quesiton
+
+
+
+def give_order_to_client(path):

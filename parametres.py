@@ -100,6 +100,10 @@ parametres = [
         "headers":["id","table","order","quantity","price","status order","status payment"]
     },
     {
+        "name":"get_order_from_kitchen.csv", #9
+        "headers":["id","table","order","quantity","price","status order","status payment"]
+    },
+    {
         "name":"restoraunt_parametres.csv", #-1
         "headers":["tables","salary","margin","comission","budget"]
     }
@@ -161,7 +165,7 @@ def tasks_(task,path):
     from creator import file_creator, restoraunt_parametres_changer,user_deleter
     from registrator import users_creator, edit_user
     from kitchen import new_dish, dish_editor_deleter
-    from waiters import get_order,edit_order,add_order_to_kitchen,get_orders_from_waiters
+    from waiters import get_order,edit_order,add_order_to_kitchen,get_orders_from_waiters,give_order_to_waiter_client,get_order_from_kitchen
     from finances import get_report_with_date, get_warehouse_balance
     from distributors import create_new_distributor
     from invoices import create_new_invoice
@@ -218,7 +222,7 @@ def tasks_(task,path):
         elif task == "get orders":
             function = get_orders_from_waiters(path)
         elif task == "give orders":
-            function = ... 
+            function = give_order_to_waiter_client(path,7,8,"status order","done")
         elif task == "get order":
             function = get_order(path)
         elif task == "edit order":
@@ -226,7 +230,7 @@ def tasks_(task,path):
         elif task == "add order to kitchen":
             function = add_order_to_kitchen(path)   
         elif task == "get order from kitchen":
-            function = ...
+            function = get_order_from_kitchen(path)
         elif task == "give order to client":
             pass  
         elif task == "get payment":
