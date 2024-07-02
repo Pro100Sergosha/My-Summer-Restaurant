@@ -1,10 +1,4 @@
 
-
-from printer import role_tasks
-
-
-
-
 departments = {
     'admin': [
         {
@@ -35,7 +29,6 @@ departments = {
         'warehouse management': [
                                 'get warehouse balance',
                                 'add new product',
-                                'extract product',
                                 'drop product',
                                 'back'
                                 ],
@@ -96,13 +89,19 @@ parametres = [
         "headers":["id","table","order","quantity","price","status order","status payment"]
     },
     {
-        "name":"orders_to_kitchen.csv", #8
+        "name":"orders_to_waiters.csv", #8
+        "headers":["id","table","order","quantity","price","status order","status payment"]
+    },
+
+    {
+        "name":"give_order_to_client.csv", #9
         "headers":["id","table","order","quantity","price","status order","status payment"]
     },
     {
-        "name":"get_order_from_kitchen.csv", #9
+        "name":"paid orders.csv", #10
         "headers":["id","table","order","quantity","price","status order","status payment"]
     },
+    
     {
         "name":"restoraunt_parametres.csv", #-1
         "headers":["tables","salary","margin","comission","budget"]
@@ -165,7 +164,7 @@ def tasks_(task,path):
     from creator import file_creator, restoraunt_parametres_changer,user_deleter
     from registrator import users_creator, edit_user
     from kitchen import new_dish, dish_editor_deleter
-    from waiters import get_order,edit_order,add_order_to_kitchen,get_orders_from_waiters,give_order_to_waiter_client,get_order_from_kitchen
+    from waiters import get_order,edit_order,add_order_to_kitchen,get_orders_from_waiters,give_order_to_waiter_client,get_order_from_kitchen,get_payment,dish_total_price,get_payment
     from finances import get_report_with_date, get_warehouse_balance
     from distributors import create_new_distributor
     from invoices import create_new_invoice
@@ -198,7 +197,7 @@ def tasks_(task,path):
         elif task == "get warehouse balance":
             function, _ = get_warehouse_balance()
         elif task == "calculate dish cost":
-            pass 
+            function = dish_total_price(path)
         elif task == "add new distributor":
             function, _ = create_new_distributor()
         elif task == "pay debt":
@@ -209,8 +208,6 @@ def tasks_(task,path):
             function, _ = pay_salaries()
         elif task == "add new product":
             function, _ = create_new_invoice()
-        elif task == "extract product":
-            pass  
         elif task == "drop product":
             function, _ = drop_product()
         elif task == "add new dish":
@@ -222,7 +219,7 @@ def tasks_(task,path):
         elif task == "get orders":
             function = get_orders_from_waiters(path)
         elif task == "give orders":
-            function = give_order_to_waiter_client(path,7,8,"status order","done")
+            function = give_order_to_waiter_client(path,"Enter id to give order to waiters: ",7,8,"status order","done")
         elif task == "get order":
             function = get_order(path)
         elif task == "edit order":
@@ -232,9 +229,9 @@ def tasks_(task,path):
         elif task == "get order from kitchen":
             function = get_order_from_kitchen(path)
         elif task == "give order to client":
-            pass  
+            function =  give_order_to_waiter_client(path,"Enter id to give order to costumer: ",8,9,"status payment","inprocess")
         elif task == "get payment":
-            pass  
+            function = get_payment(path)
         if not function:
             return False
         

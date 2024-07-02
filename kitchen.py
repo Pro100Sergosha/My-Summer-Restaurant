@@ -13,9 +13,15 @@ def new_dish(path):
         temp_dict.update(dish_registrator(path))
         data.append(temp_dict)
         write_csv(f'{path}/{parametres[2]["name"]}',data)
-        quesiton = repeat_back()
-        return quesiton
-        
+        while True:
+            user_input = input("what would you like to do? (repeat/back): ").strip().lower()
+            if user_input == "repeat":
+                break
+            elif user_input == "back":
+                return False
+            else:
+                print("Invalid input")  
+
 
 
 
@@ -30,6 +36,13 @@ def dish_registrator(path):
     price= product_price_getter(ingredient,quantity,path)
     temp_dict= {"product":ingredient,"measure unit":unit,"quantity":quantity,"price":price}
     return temp_dict
+
+
+
+
+
+
+
 
 def product_price_getter(ingredient,quantity,path):
     # კონკრეტული ინგრედიენტის ფასის დასადგენად ვიყენებ ამ ფუნქციას
@@ -117,15 +130,20 @@ def dish_editor_deleter(path,txt,option=False):
                             delete_list.append(temp_dict)
                         print(tabulate(delete_list,headers="keys"))
                         write_csv(f'{path}/{parametres[2]["name"]}',delete_list)
-                        quesiton = repeat_back()
-                        return quesiton               
-        
+                        while True:
+                            user_input = input("what would you like to do? (repeat/back): ").strip().lower()
+                            if user_input == "repeat":
+                                break
+                            elif user_input == "back":
+                                return False
+                            else:
+                                print("Invalid input")                
+
         print("There is not dish in the list")
         return False
 
 
  
-
 
 
 
