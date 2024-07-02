@@ -1,8 +1,1 @@
-date,company name,unpaid,paid
-20-02-2020,AlgoUni,20.0,0
-11-11-1111,AlgoUni,150.0,0
-02-02-2024,AlgoUni,318.0,0
-02-07-2024,AlgoUni,64.0,0
-02-06-2024,AlgoUni,40.0,0
-02-04-2024,AlgoUni,4.0,0
-02-02-2020,AlgoUni,60.0,0
+date,distributor name,unpaid,paid,income

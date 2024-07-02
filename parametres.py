@@ -98,7 +98,7 @@ parametres = [
         "headers":["id","table","order","quantity","price","status order","status payment"]
     },
     {
-        "name":"paid orders.csv", #10
+        "name":"paid_orders.csv", #10
         "headers":["id","table","order","quantity","price","status order","status payment"]
     },
     

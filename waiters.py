@@ -7,7 +7,7 @@ from registrator import id_creator
 
 def csv_checker(file):
     if not file:
-        print("list is empty")
+        print("\nlist is empty\n")
         return False
     return True
 
@@ -229,7 +229,7 @@ def get_payment(path):
         write_csv(f'{path}/{parametres[10]["name"]}',pay_orders)
         
         for item in pay_orders:
-            balance["budget"] = float(balance["budget"]) + float(item["price"])
+            balance[0]["budget"] = float(balance[0]["budget"]) + float(item["price"])
         append_csv(f'{path}/{parametres[-1]["name"]}', balance)
         quesiton = repeat_back()
         return quesiton

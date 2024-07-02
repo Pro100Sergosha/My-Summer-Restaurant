@@ -1,11 +1,1 @@
-dish,product,measure unit,quantity,price
-Khinkali,Eggs,piece,3.0,1.20
-khachapuri,Tomato,kg,3.0,1.5
-Kartopili,Eggs,piece,3.0,1.2
-Kartopili,Banana,kg,3.0,1.2
-Kupati,Tomato,kg,5.0,2.5
-Cezari,Tomato,kg,3.0,1.5
-Cezari,Tomato,kg,3.0,1.5
-Kubdari,Meat,kg,1.0,4.0
-Kubdari,Potato,piece,1.0,5.0
-Kubdari,Eggs,piece,1.0,0.3
+dish,product,measure unit,quantity,price

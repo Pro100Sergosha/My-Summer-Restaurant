@@ -1,14 +1,1 @@
-id,product,measure unit,quantity,one item price
-2,Potato,piece,10.0,5.0
-3,Tomato,kg,20.0,2.0
-4,Cucumber,kg,20.0,0.4
-5,Potato,kg,20.0,0.7
-6,Meat,kg,20.0,4.0
-7,Meat,kg,40.0,5.0
-8,Meat,kg,10.0,0.4
-9,Eggs,piece,70.0,0.3
-10,Salad,kg,10.0,1.0
-11,Eggs,piece,50.0,0.2
-12,Cucumber,kg,10.0,1.5
-13,Meat,kg,10.0,6.0
-14,Eggs,piece,50.0,1.0
+id,product,measure unit,quantity,one item price
