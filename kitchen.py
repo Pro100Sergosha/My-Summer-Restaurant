@@ -93,22 +93,6 @@ def unit_getter(path,ingredient):
         
 
 
-# def user_deleter(path):
-#     while True:
-#         data = read_csv(f'{path}/{parametres[0]["name"]}')
-#         user_printer(data)
-#         user_input =  number_validator("enter id to delete: ",str)
-#         if int(user_input) > len(data):
-#             continue
-#         delete = lambda d: d['id'] == user_input
-#         delete_list = [i for i in data if not delete(i)]
-#         # print(delete_list)
-#         write_csv(f'{path}/{parametres[0]["name"]}',delete_list)
-#         user_printer(data)
-#         quesiton = repeat_back()
-#         if not quesiton:
-#             return False
-
 
 def dish_editor_deleter(path,txt,option=False):
     data = read_csv(f'{path}/{parametres[2]["name"]}')

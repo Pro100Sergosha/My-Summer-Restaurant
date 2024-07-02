@@ -43,21 +43,21 @@ def create_admin(path):
     print("You are registered\n")
 
 
-    # "headers":["tables","salary","margin","comission","budget"]
+
 def restoraunt_para_creator():
     param = []
-    # "salary","budget"
+
     tables = number_validator("enter table quantity: ",int)
     salary = number_validator("enter salary: ",int)
     margin = number_validator("enter margin percent: ",int)
     comission = number_validator("enter comissiont percent: ",int)
     budget = number_validator("enter budget: ", int)
     param.append({"tables":tables,"salary":salary,"margin":margin,"comission":comission,"budget":budget})
-    # print(param)
+  
     return param
 
 
-# restoraunt_para_creator()
+
 
 
 def restoraunt_parametres_changer(path,param):

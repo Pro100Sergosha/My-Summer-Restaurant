@@ -108,11 +108,6 @@ parametres = [
     }
     ]   
 
-#    {
-#         "name":"orders_to_kitchen.csv", #6
-#         "headers":["id","table","order","quantity","price","status order","status payment"]
-#     },
-
 
 
 departments['accountant'] = [
@@ -270,4 +265,3 @@ def system_menu_printer(user,text,option=False):
 
 
 
-# თარიღი,დისტრიბუტორი, პროდუქტის დასახელება, ზომის ერთეული(კილო,ცალი,ლიტრო), რაოდენობა, ერთეულის ფასი, სრული ფასი

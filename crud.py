@@ -1,8 +1,4 @@
 import csv
-import tempfile
-
-
-
 
 
 def read_csv(filename):

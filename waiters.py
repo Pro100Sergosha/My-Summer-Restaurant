@@ -4,8 +4,6 @@ from parametres import parametres
 from registrator import id_creator
 
 
-x = [[1],[2],[]]
-print(len(x))
 
 def csv_checker(file):
     if not file:
@@ -148,7 +146,7 @@ def add_order_to_kitchen(path):
         quesiton = repeat_back()
         return quesiton
     
-# add_order_to_kitchen("restorauntParametres")
+
 
 
 
@@ -162,7 +160,7 @@ def get_orders_from_waiters(path):
         quesiton = repeat_back()
         return quesiton
 
-get_orders_from_waiters("restorauntParametres")
+
 
 
 
@@ -188,7 +186,7 @@ def give_order_to_waiter_client(path,text,x,y,status_order_payment,status):
         return quesiton
 
 
-# give_order_to_waiter("restorauntParametres")
+
 
 
 def get_order_from_kitchen(path):
