@@ -5,8 +5,8 @@ from creator import folder_path
 
 path = folder_path()
 
-debts_path = f'{path}/{parametres[8]['name']}'
-restourant_path = f'{path}/{parametres[-1]['name']}'
+debts_path = f'{path}/{parametres[6]["name"]}'
+restourant_path = f'{path}/{parametres[-1]["name"]}'
 
 def get_warehouse_balance():
     from crud import read_csv

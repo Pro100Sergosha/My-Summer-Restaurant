@@ -6,9 +6,9 @@ from tabulate import tabulate
 
 path = folder_path()
 
-restourant_path = f'{path}/{parametres[-1]['name']}'
-warehouse_path = f'{path}/{parametres[1]['name']}'
-invoice_path = f'{path}/{parametres[5]['name']}'
+restourant_path = f'{path}/{parametres[-1]["name"]}'
+warehouse_path = f'{path}/{parametres[1]["name"]}'
+invoice_path = f'{path}/{parametres[4]["name"]}'
 
 
 

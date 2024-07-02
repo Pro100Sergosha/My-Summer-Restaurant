@@ -2,8 +2,6 @@
 
 from parametres import parametres, system_menu_printer, tasks_
 
-from user_input_validator import table_quantity_validator
-
 
 
 def main(): 

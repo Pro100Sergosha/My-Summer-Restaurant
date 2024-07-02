@@ -49,9 +49,10 @@ departments = {
                                 ], 
         'waiters management': [
                                 'get order',
+                                'edit order',
                                 'add order to kitchen',
                                 'get order from kitchen',
-                                'give order to client'
+                                'give order to client',
                                 'get payment',
                                 'back'
                                 ],
@@ -62,41 +63,41 @@ departments = {
 
 parametres = [
     {
-        "name":"users.csv", 
+        "name":"users.csv", #0
         "headers":["id","name","email","password","role"]
 
     } ,
     {
-        'name': 'warehouse.csv', 
+        'name': 'warehouse.csv', #1
         'headers': ['id', 'product', 'measure unit', 'quantity', 'one item price']
     },
     {
-        "name":"dishes.csv", 
+        "name":"dishes.csv", #2
         "headers":["dish","product","measure unit","quantity","price"] 
     },
     {
-        "name":"orders.csv", 
+        "name":"orders.csv", #3
         "headers":["id","table","order","quantity","price","status order","status payment"]
     },
     {
-        "name":"menu_prices.csv", 
-        "headers":["dish","price on per unit","service Fee(included)"]
-    },
-    {
-        'name': 'invoices.csv', 
+        'name': 'invoices.csv', #4
         'headers': ['date', 'distributor name', 'product', 'measure unit', 'quantity', 'one item price', 'total price']
     },
     {
-        "name":"done_orders.csv", 
-        "headers":["id","table","order","quantity","price","status order","status payment"]
-    },
-    {
-        'name':'distributors.csv', 
+        'name':'distributors.csv', #5
         'headers': ['id', 'company name', 'company address', 'distributor name', 'distributor phone number']
     },
     {
-        'name': 'debts.csv', 
+        'name': 'debts.csv', #6
         'headers': ['date', 'distributor name', 'unpaid', 'paid', 'income']
+    },
+    {
+        "name":"add_order_to_kitchen.csv", #7
+        "headers":["id","table","order","quantity","price","status order","status payment"]
+    },
+    {
+        "name":"orders_to_kitchen.csv", #8
+        "headers":["id","table","order","quantity","price","status order","status payment"]
     },
     {
         "name":"restoraunt_parametres.csv", #-1
@@ -104,7 +105,10 @@ parametres = [
     }
     ]   
 
-
+#    {
+#         "name":"orders_to_kitchen.csv", #6
+#         "headers":["id","table","order","quantity","price","status order","status payment"]
+#     },
 
 
 
@@ -156,8 +160,8 @@ def tasks_(task,path):
 
     from creator import file_creator, restoraunt_parametres_changer,user_deleter
     from registrator import users_creator, edit_user
-    from kitchen import new_dish, dish_editor_deleter,give_order_to_waiter
-    from waiters import get_order,give_order_kitchen,get_order_from_kitchen
+    from kitchen import new_dish, dish_editor_deleter
+    from waiters import get_order,edit_order,add_order_to_kitchen,get_orders_from_waiters
     from finances import get_report_with_date, get_warehouse_balance
     from distributors import create_new_distributor
     from invoices import create_new_invoice
@@ -212,15 +216,17 @@ def tasks_(task,path):
         elif task == "delete dish":
             function = dish_editor_deleter(path,"delete")
         elif task == "get orders":
-            function = give_order_kitchen(path)
+            function = get_orders_from_waiters(path)
         elif task == "give orders":
-            function = give_order_to_waiter(path)  
+            function = ... 
         elif task == "get order":
             function = get_order(path)
+        elif task == "edit order":
+            function = edit_order(path)
         elif task == "add order to kitchen":
-            function = give_order_kitchen(path)      
+            function = add_order_to_kitchen(path)   
         elif task == "get order from kitchen":
-            function = get_order_from_kitchen(path)  
+            function = ...
         elif task == "give order to client":
             pass  
         elif task == "get payment":

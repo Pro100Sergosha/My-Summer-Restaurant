@@ -103,7 +103,7 @@ def dish_editor_deleter(path,txt,option=False):
     
     while True:
 
-        user_input = input(f"Enter dish to {txt}: ").title()
+        user_input = input(f"Enter dish to {txt}: ").title().strip()
         for item in data:
             if item["dish"] == user_input:
                 while True:
@@ -125,19 +125,6 @@ def dish_editor_deleter(path,txt,option=False):
 
 
  
-
-
-def give_order_to_waiter(path):
-    while True:
-        menu = read_csv(f'{path}/{parametres[3]["name"]}')
-        print(tabulate(menu,headers="keys"))
-        user_input = number_validator("enter dish id: ",str)
-        for dish in menu:
-            if user_input == dish["id"]:
-                dish["status order"] = "done"
-        write_csv(f'{path}/{parametres[3]["name"]}',menu)
-        quesiton = repeat_back()
-        return quesiton    
 
 
 

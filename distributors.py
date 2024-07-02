@@ -5,7 +5,7 @@ from distributor_validators import validate_distributor_inputs
 
 path = folder_path()
 
-distributor_path = f'{path}/{parametres[7]['name']}'
+distributor_path = f'{path}/{parametres[5]["name"]}'
 
 
 def create_new_distributor():
@@ -17,7 +17,7 @@ def create_new_distributor():
             txt = input(inp)
             validated_data = validate_distributor_inputs(txt, input_texts, inp)
             if validated_data[0]:
-                inputs[parametres[7]['headers'][input_texts.index(inp)]] = validated_data[1]
+                inputs[parametres[5]['headers'][input_texts.index(inp)]] = validated_data[1]
             else:
                 break
         if len(inputs.keys()) == len(input_texts):

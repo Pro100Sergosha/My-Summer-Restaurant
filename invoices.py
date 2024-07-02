@@ -7,25 +7,25 @@ from utils import choices
 
 path = folder_path()
 
-invoice_path = f'{path}/{parametres[5]['name']}'
-warehouse_path = f'{path}/{parametres[2]['name']}'
+invoice_path = f'{path}/{parametres[4]["name"]}'
+warehouse_path = f'{path}/{parametres[2]["name"]}'
 
 
 def create_invoice_with_data(input_texts):
     from invoice_validators import data, validate_invoice_inputs
     from crud import append_csv
     inputs = {}
-    inputs[parametres[5]['headers'][0]] = data[0][1]
-    inputs[parametres[5]['headers'][1]] = data[1][1]
+    inputs[parametres[4]['headers'][0]] = data[0][1]
+    inputs[parametres[4]['headers'][1]] = data[1][1]
     for inp in input_texts[2:]:
         again_txt = input(inp)
         again_data = validate_invoice_inputs(again_txt, input_texts, inp)
         if again_data[0]:
-            inputs[parametres[5]['headers'][input_texts.index(inp)]] = again_data[1]
+            inputs[parametres[4]['headers'][input_texts.index(inp)]] = again_data[1]
         else:
             break
         if len(inputs.keys()) == len(input_texts):
-            inputs[parametres[5]['headers'][6]] = float(inputs['quantity']) * float(inputs['one item price'])
+            inputs[parametres[4]['headers'][6]] = float(inputs['quantity']) * float(inputs['one item price'])
             add_products()
             append_csv(invoice_path, [inputs])
             return print(f'Invoice created successfuly!\n')
@@ -41,11 +41,11 @@ def create_new_invoice():
             txt = input(inp)
             validated_data = validate_invoice_inputs(txt, input_texts, inp)
             if validated_data[0]:
-                inputs[parametres[5]['headers'][input_texts.index(inp)]] = validated_data[1]
+                inputs[parametres[4]['headers'][input_texts.index(inp)]] = validated_data[1]
             elif not validated_data[0]:
                 return False, None
         if len(inputs.keys()) == len(input_texts):
-            inputs[parametres[5]['headers'][6]] = float(inputs['quantity']) * float(inputs['one item price'])
+            inputs[parametres[4]['headers'][6]] = float(inputs['quantity']) * float(inputs['one item price'])
             append_csv(invoice_path, [inputs])
             print(f'Invoice created successfuly!\n')
             while True:

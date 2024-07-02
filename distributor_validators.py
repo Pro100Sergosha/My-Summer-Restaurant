@@ -1,11 +1,10 @@
 from parametres import parametres
 from creator import folder_path
-
 import re
 
 path = folder_path()
 
-distributor_path = f'{path}/{parametres[7]['name']}'
+distributor_path = f'{path}/{parametres[5]["name"]}'
 
 def validate_company_id(text, input_texts, inp):
     from crud import read_csv

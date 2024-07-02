@@ -7,9 +7,9 @@ from tabulate import tabulate
 
 path = folder_path()
 
-debts_path = f'{path}/{parametres[8]['name']}'
-balance_path = f'{path}/{parametres[-1]['name']}'
-warehouse_path = f'{path}/{parametres[1]['name']}'
+debts_path = f'{path}/{parametres[6]["name"]}'
+balance_path = f'{path}/{parametres[-1]["name"]}'
+warehouse_path = f'{path}/{parametres[1]["name"]}'
 
 def check_old_debts(new_debts, old_debts):
     updated_data = []
