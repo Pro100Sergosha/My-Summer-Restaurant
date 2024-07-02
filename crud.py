@@ -26,6 +26,7 @@ def append_csv(filename, data):
         for line in data:
             write.writerow(line)
 
+
 def update_csv(filename, updated_data):
     rows = [row for row in updated_data]
     with open(filename, mode='w', newline='') as file:

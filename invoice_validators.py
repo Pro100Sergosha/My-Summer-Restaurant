@@ -1,6 +1,9 @@
 import re
 
 def is_float(s):
+    """
+    Checks if the given string can be converted to a float.
+    """
     try:
         float(s)
         return True
@@ -8,6 +11,9 @@ def is_float(s):
         return False
 
 def validate_date(text, input_texts, inp):
+    """
+    Validates that the input text is a date in the format DD-MM-YYYY.
+    """
     while True:
         if input_texts.index(inp) == 0 and re.match(r'\d{2}-\d{2}-\d{4}', text):
             return True, text
@@ -18,6 +24,9 @@ def validate_date(text, input_texts, inp):
             return False, 'date'
 
 def validate_distributor(text, input_texts, inp):
+    """
+    Validates that the distributor exists in the system.
+    """
     from distributor_validators import check_distributor_existence
     while True:
         if check_distributor_existence(text):
@@ -33,6 +42,9 @@ def validate_distributor(text, input_texts, inp):
             return False, 'distrib'
 
 def validate_measure_unit(text, input_texts, inp):
+    """
+    Validates that the measure unit is one of the accepted values: 'piece', 'kg', 'litres'.
+    """
     while True:
         if input_texts.index(inp) == 3 and not text in ['piece', 'kg', 'litres']:
             print(f'Invalid measure unit\nPlease enter one from this - (piece, kg, litres)')
@@ -43,6 +55,9 @@ def validate_measure_unit(text, input_texts, inp):
             return False, 'measure unit'
 
 def validate_quantity(text, measure_unit, input_texts, inp):
+    """
+    Validates the quantity based on the measure unit. Ensures the quantity is a float for 'kg' and 'litres' and an integer for 'piece'.
+    """
     while True:
         try:
             if input_texts.index(inp) == 4 and measure_unit[1] in ['kg', 'litres']:
@@ -58,9 +73,10 @@ def validate_quantity(text, measure_unit, input_texts, inp):
             print(f'Invalid number\nPlease enter integer value')
             text = input(inp)
 
-
-
 def validate_product_name(text, input_texts, inp):
+    """
+    Validates that the product name is not empty.
+    """
     while True:
         if input_texts.index(inp) == 2 and text.strip() == '':
             print(f'Product name must be filled in!')
@@ -71,6 +87,9 @@ def validate_product_name(text, input_texts, inp):
             return False, 'product name'
         
 def validate_one_item_input(text, input_texts, inp):
+    """
+    Validates that the input text is a float, which represents the price of one item.
+    """
     while True:
         try:
             if input_texts.index(inp) == 5 and text.strip() == '':
@@ -83,16 +102,19 @@ def validate_one_item_input(text, input_texts, inp):
             print('Wrong type!\nPlease enter numbers')
             text = input(inp)
 
+# List to store validated data
 data = []
-def validate_invoice_inputs(text, input_texts, inp):
-    date = validate_date(text, input_texts, inp)
 
+def validate_invoice_inputs(text, input_texts, inp):
+    """
+    Validates various invoice inputs such as date, distributor, product name, measure unit, quantity, and one item price.
+    """
+    date = validate_date(text, input_texts, inp)
     if date[0] and not date in data:
         data.append(date)
         return date
 
     distributor = validate_distributor(text, input_texts, inp)
-
     if distributor[0]:
         data.append(distributor)
         return distributor
@@ -100,16 +122,15 @@ def validate_invoice_inputs(text, input_texts, inp):
         return False, print('Please create new distributor and try again')
     
     product_name = validate_product_name(text, input_texts, inp)
-    
     if product_name[0] and not product_name in data:
         data.append(product_name)
         return product_name
     
     measure_unit = validate_measure_unit(text, input_texts, inp)
-
     if measure_unit[0] and not measure_unit in data:
         data.append(measure_unit)
         return measure_unit
+    
     quantity = validate_quantity(text, data[3], input_texts, inp)
     if quantity[0] and not quantity in data:
         data.append(quantity)
@@ -120,4 +141,3 @@ def validate_invoice_inputs(text, input_texts, inp):
         data.append(one_item_price)
         del data[2:]
         return one_item_price
-    
