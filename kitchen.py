@@ -9,6 +9,9 @@ def new_dish(path):
     dish_name = name_validator("Enter dish name: ").title().strip()
     while True:
         data = read_csv(f'{path}/{parametres[2]["name"]}')
+        if not data:
+            print("list is empty")
+            return False
         temp_dict ={"dish":dish_name}
         temp_dict.update(dish_registrator(path))
         data.append(temp_dict)

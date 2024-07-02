@@ -1,11 +1,8 @@
-
-
 from parametres import parametres, system_menu_printer, tasks_
 
 
 
 def main():
-    while True: 
         try:
             from crud import write_csv, read_csv
             from creator import folder_path,restoraunt_para_creator,file_info, create_admin
@@ -13,9 +10,6 @@ def main():
             print("Welcome to application!")
             path = folder_path()
             users_creator = file_info(path)
-
-        
-        
 
             if not users_creator:  
                 create_admin(path)
@@ -41,10 +35,6 @@ def main():
                             break 
         except EOFError:
             print("System shut down")
-        except:
-            from creator import file_creator
-            file_creator(path)
-            pass
 
 if __name__=="__main__":
     main()
