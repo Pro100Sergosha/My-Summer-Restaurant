@@ -1,5 +1,11 @@
 import re
-from distributor_validators import check_distributor_existence
+
+def is_float(s):
+    try:
+        float(s)
+        return True
+    except ValueError:
+        return False
 
 def validate_date(text, input_texts, inp):
     while True:
@@ -9,37 +15,45 @@ def validate_date(text, input_texts, inp):
             print(f'Invalid date format\nPlease enter date in this format DD-MM-YYYY')
             text = input(inp)
         else:
-            return False, 'txt'
+            return False, 'date'
 
 def validate_distributor(text, input_texts, inp):
+    from distributor_validators import check_distributor_existence
     while True:
-        if input_texts.index(inp) == 1 and check_distributor_existence(text):
+        if check_distributor_existence(text):
             return True, text
-        elif input_texts.index(inp) == 1 and not check_distributor_existence(text):
-            print(f'Company with this name doesn\'t exist')
+        elif input_texts.index(inp) != 1 and check_distributor_existence(text):
+            print(f'Company with this name doesn\'t exist enter exit to exit')
             text = input(inp)
+            if text == 'exit':
+                return 'create', 'distributor'
+            else:
+                return False, 'Distributor'
         else:
-            return False, 'txt'
+            return False, 'distrib'
 
 def validate_measure_unit(text, input_texts, inp):
     while True:
         if input_texts.index(inp) == 3 and not text in ['piece', 'kg', 'litres']:
             print(f'Invalid measure unit\nPlease enter one from this - (piece, kg, litres)')
             text = input(inp)
-        if input_texts.index(inp) == 3 and  text in ['piece', 'kg', 'litres']:
+        if input_texts.index(inp) == 3 and text in ['piece', 'kg', 'litres']:
             return True, text
         else:
-            return False, 'txt'
+            return False, 'measure unit'
 
 def validate_quantity(text, measure_unit, input_texts, inp):
     while True:
         try:
-            if input_texts.index(inp) == 4 and not measure_unit[1] in ['kg', 'litres']:
+            if input_texts.index(inp) == 4 and measure_unit[1] in ['kg', 'litres']:
                 return True, float(text)
-            elif input_texts.index(inp) == 4 and measure_unit[1] != 'piece':
-                return True, int(text)
-            else:
-                return False, 'txt'
+            elif input_texts.index(inp) == 4 and measure_unit[1] == 'piece':
+                text = int(text)
+                return True, text
+            elif is_float(text):
+                return False, 'quantity'
+            elif not is_float(text):
+                raise ValueError
         except ValueError:
             print(f'Invalid number\nPlease enter integer value')
             text = input(inp)
@@ -54,41 +68,56 @@ def validate_product_name(text, input_texts, inp):
         if input_texts.index(inp) == 2 and text:
             return True, text.title()
         else:
-            return False, 'txt'
+            return False, 'product name'
         
 def validate_one_item_input(text, input_texts, inp):
     while True:
         try:
             if input_texts.index(inp) == 5 and text.strip() == '':
                 raise ValueError
+            elif not is_float(text):
+                return False, 'Not Float'
             else:
                 return True, float(text)
         except ValueError:
             print('Wrong type!\nPlease enter numbers')
             text = input(inp)
+
 data = []
 def validate_invoice_inputs(text, input_texts, inp):
     date = validate_date(text, input_texts, inp)
-    if date[0]:
+
+    if date[0] and not date in data:
         data.append(date)
         return date
-    
+
     distributor = validate_distributor(text, input_texts, inp)
+
     if distributor[0]:
         data.append(distributor)
         return distributor
+    elif distributor[0] == 'create':
+        return False, print('Please create new distributor and try again')
     
     product_name = validate_product_name(text, input_texts, inp)
-    if product_name[0]:
+    
+    if product_name[0] and not product_name in data:
+        data.append(product_name)
         return product_name
+    
     measure_unit = validate_measure_unit(text, input_texts, inp)
-    if measure_unit[0]:
+
+    if measure_unit[0] and not measure_unit in data:
         data.append(measure_unit)
         return measure_unit
-    quantity = validate_quantity(text, data[2], input_texts, inp)
-    if quantity[0]:
+    quantity = validate_quantity(text, data[3], input_texts, inp)
+    if quantity[0] and not quantity in data:
+        data.append(quantity)
         return quantity
+    
     one_item_price = validate_one_item_input(text, input_texts, inp)
-    if one_item_price[0]:
+    if one_item_price[0] and not one_item_price in data:
+        data.append(one_item_price)
+        del data[2:]
         return one_item_price
     

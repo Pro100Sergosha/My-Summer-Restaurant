@@ -1,4 +1,27 @@
-date,distributor name,product,measure unit,quantity,one item price,total price
-20-02-2020,Sergo,Eggs,piece,50,0.4,20.0
-11-11-1111,Sergo,Milk,litres,10,5,50.0
-11-11-1111,Sergo,Potato,piece,10,5,50.0
+date,company name,product,measure unit,quantity,one item price,total price
+20-02-2020,AlgoUni,Eggs,piece,50,0.4,20.0
+11-11-1111,AlgoUni,Milk,litres,10,5,50.0
+11-11-1111,AlgoUni,Potato,piece,10,5,50.0
+02-02-2024,AlgoUni,Eggs,piece,10,0.4,4.0
+02-02-2024,AlgoUni,Eggs,piece,50,0.4,20.0
+02-02-2024,AlgoUni,Tomato,kg,20.0,2.0,40.0
+02-02-2024,AlgoUni,Cucumber,kg,10.0,0.4,4.0
+02-07-2024,AlgoUni,Potato,kg,10.0,0.7,7.0
+02-06-2024,AlgoUni,Meat,kg,10.0,4.0,40.0
+02-07-2024,AlgoUni,Meat,kg,10.0,5.0,50.0
+02-07-2024,AlgoUni,Meat,kg,10.0,0.4,4.0
+02-02-2024,AlgoUni,Eggs,piece,10,0.3,3.0
+02-02-2024,AlgoUni,Salad,kg,10.0,1.0,10.0
+02-02-2024,AlgoUni,Meat,kg,10.0,5.0,50.0
+02-07-2024,AlgoUni,Eggs,piece,10,0.3,3.0
+02-04-2024,AlgoUni,Cucumber,kg,10.0,0.4,4.0
+02-02-2024,AlgoUni,Eggs,piece,50,0.3,15.0
+02-02-2024,AlgoUni,Meat,kg,10,5.0,50.0
+02-02-2020,AlgoUni,Eggs,piece,50,0.2,10.0
+02-02-2020,AlgoUni,Meat,kg,10,5.0,50.0
+02-02-2024,AlgoUni,Meat,kg,10.0,4.0,40.0
+02-02-2024,AlgoUni,Potato,kg,10.0,0.7,7.0
+02-02-2024,AlgoUni,Cucumber,kg,10.0,1.5,15.0
+02-02-2024,AlgoUni,Meat,kg,10.0,6.0,60.0
+11-11-1111,AlgoUni,Eggs,piece,50,1.0,50.0
+02-07-2024,AlgoUni,Salad,kg,10.0,2.5,25.0

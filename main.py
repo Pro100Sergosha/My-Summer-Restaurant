@@ -1,14 +1,17 @@
-from crud import write_csv, read_csv
-from creator import folder_path,restoraunt_para_creator,file_info, create_admin
+
+
 from parametres import parametres, system_menu_printer, tasks_
-from registrator import login_user_role_getter
+
 from user_input_validator import table_quantity_validator
 
 
 
 def main(): 
     try:
-        print("welcome to application")
+        from crud import write_csv, read_csv
+        from creator import folder_path,restoraunt_para_creator,file_info, create_admin
+        from registrator import login_user_role_getter
+        print("Welcome to application!")
         path = folder_path()
         users_creator = file_info(path)
 
@@ -38,7 +41,7 @@ def main():
                     if not functions:
                         break 
     except EOFError:
-        print("system shut donw")
+        print("System shut down")
 
         
 

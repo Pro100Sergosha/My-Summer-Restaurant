@@ -5,7 +5,6 @@ from registrator import id_creator
 
 
 
-# "headers":["id","table","order","quantity","price","status order","status payment"]
 def get_order(path):
     from user_input_validator import table_quantity_validator, number_validator,repeat_back
     while True:
@@ -33,7 +32,7 @@ def get_dish_price(menu):
         for dish in menu:
             if user_input ==dish["dish"] :
                 return dish["dish"],dish["one item price"]
-        print("enter correct dish")
+        print("Enter correct dish")
 
 
 

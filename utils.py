@@ -1,7 +1,9 @@
 import csv
-import re
-from params import params
-file_path = f'files/'
+from creator import folder_path
+
+path = folder_path()
+
+file_path = f'{path}/'
 
 def check_create_headers(filename, data):
     headers = list(data[0].keys())

@@ -1,12 +1,22 @@
-from crud import read_csv
+
 from tabulate import tabulate
-from params import params
+from parametres import parametres
+from creator import folder_path
 
+path = folder_path()
 
-debts_path = f'files/{params[3]['name']}'
-restourant_path = f'files/{params[4]['name']}'
+debts_path = f'{path}/{parametres[8]['name']}'
+restourant_path = f'{path}/{parametres[-1]['name']}'
+
+def get_warehouse_balance():
+    from crud import read_csv
+    warehouse = read_csv(restourant_path)
+    balance = warehouse[0]['budget']
+    balance = [[balance]]
+    return False, print(tabulate(balance, headers=['balance']))
 
 def get_financial_report(option):
+    from crud import read_csv
     debts = read_csv(debts_path)
     unpaid_list = []
     for data in debts:
@@ -44,6 +54,7 @@ def date_to_int(date_str):
     return year * 10000 + month * 100 + day
 
 def get_report_with_date():
+    from crud import read_csv
     debts = read_csv(debts_path)
     balance = float(read_csv(restourant_path)[0]['budget'])
 
@@ -77,10 +88,7 @@ def get_report_with_date():
         'income': 0
     }
 
-    return print(tabulate([overall_info], headers='keys'))
+    return False, print(tabulate([overall_info], headers='keys'))
 
 
-# get_report_with_date('01-07-2023', '01-07-2023')
-
-# get_financial_report('Enter which status do you want (paid, unpaid, in progress) or nothing to see all: ')
     

@@ -3,7 +3,6 @@ import csv
 from parametres import parametres
 from user_input_validator import number_validator, repeat_back
 from registrator import super_user_ceator
-from crud import write_csv,read_csv
 from printer import user_printer
 
 
@@ -30,16 +29,18 @@ def file_creator(path):
 def file_info(path):
     # ფაილების შექმნა მაქვს ცალკე ფუქციად გატანილი, რადგან რამდენიმეჯერ მჭირდება გამოძახება
     file_creator(path)
+    from crud import write_csv, read_csv
     users_info = read_csv(f'{path}/{parametres[0]["name"]}')
     return users_info
 
 
 def create_admin(path):
+    from crud import write_csv, read_csv
     print()
-    print("register to system")
+    print("Register to system")
     users = super_user_ceator()
     write_csv(f'{path}/{parametres[0]["name"]}',users)
-    print("you are registered\n")
+    print("You are registered\n")
 
 
     # "headers":["tables","salary","margin","comission","budget"]
@@ -60,6 +61,7 @@ def restoraunt_para_creator():
 
 
 def restoraunt_parametres_changer(path,param):
+    from crud import write_csv, read_csv
     while True:
         change = read_csv(f'{path}/{parametres[-1]["name"]}')
         print(f'{param} value: {change[0][param]} ')
@@ -76,6 +78,7 @@ def restoraunt_parametres_changer(path,param):
 
 
 def user_deleter(path):
+    from crud import write_csv, read_csv
     while True:
         data = read_csv(f'{path}/{parametres[0]["name"]}')
         user_printer(data)
@@ -84,7 +87,6 @@ def user_deleter(path):
             continue
         delete = lambda d: d['id'] == user_input
         delete_list = [i for i in data if not delete(i)]
-        # print(delete_list)
         write_csv(f'{path}/{parametres[0]["name"]}',delete_list)
         user_printer(data)
         quesiton = repeat_back()

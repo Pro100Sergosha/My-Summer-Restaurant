@@ -1,12 +1,15 @@
-from crud import read_csv, append_csv, write_csv, update_csv
+
 from invoices import invoice_path
-from params import params
+from creator import folder_path
+from parametres import parametres
 from collections import defaultdict
 from tabulate import tabulate
 
-debts_path = f'files/{params[3]['name']}'
-balance_path = f'files/{params[4]['name']}'
-warehouse_path = f'files/{params[2]['name']}'
+path = folder_path()
+
+debts_path = f'{path}/{parametres[8]['name']}'
+balance_path = f'{path}/{parametres[-1]['name']}'
+warehouse_path = f'{path}/{parametres[1]['name']}'
 
 def check_old_debts(new_debts, old_debts):
     updated_data = []
@@ -20,6 +23,7 @@ def check_old_debts(new_debts, old_debts):
 
 
 def add_debt():
+    from crud import read_csv, append_csv, write_csv, update_csv
     invoice = read_csv(invoice_path)
     old_debt_list = read_csv(debts_path)
     debts_by_date_and_distributor = defaultdict(float)
@@ -40,6 +44,7 @@ def add_debt():
     update_csv(debts_path, data)
 
 def check_debt_amount(debts, debt, unpaid, paid):
+    from crud import read_csv, write_csv
     budget = read_csv(balance_path)
     balance = float(budget[0]['budget'])
     while True:
@@ -55,11 +60,13 @@ def check_debt_amount(debts, debt, unpaid, paid):
                     print('Too much money')
             else:
                 print('Not enough money')
+                return False
         except ValueError:
             print('Invalid type!\nPlease enter only int or float numbers!')
 
 
 def pay_debt():
+    from crud import read_csv, update_csv
     while True:
         debts = read_csv(debts_path)
         balance = read_csv(balance_path)[0]['budget']
@@ -69,27 +76,35 @@ def pay_debt():
             temp_list.append(temp_debt)
         print(tabulate(temp_list, headers='keys'))
         date = input('Enter date: ')
-        distributor = input('Enter company name: ')
+        company_name = input('Enter company name: ')
         for debt in debts:
-            if debt['date'] == date and debt['company name'] == distributor:
+            if debt['date'] == date and debt['company name'] == company_name:
                 date = debt['date']
-                distributor = debt['company name']
+                company_name = debt['company name']
                 unpaid = float(debt['unpaid'])
                 paid = float(debt['paid'])
-                debt['balance'] = balance
-                table = [date, distributor, unpaid, paid]   
-                print(tabulate([table], tablefmt='grid', headers=debt.keys()))
+                table = {}
+                table['date'] = date
+                table['company name'] = company_name
+                table['unpaid'] = unpaid
+                table['paid'] = paid
+                table['balance'] = balance
+                print(tabulate([table], tablefmt='grid', headers='keys'))
                 new_debts = check_debt_amount(debts, debt, unpaid, paid)
+                if not new_debts:
+                    return False, print('Bankrupt!:(')
                 update_csv(debts_path, new_debts)
-                return True
-                
+                return False, print('Paid successfuly!')
+        else:
+            return False, print('This date or company doesn\'t exist')
 
 def pay_salaries():
+    from crud import read_csv, update_csv
     balance = read_csv(balance_path)
     if float(balance[0]['budget']) - float(balance[0]['salary']) >= 0:
         balance[0]['budget'] = float(balance[0]['budget']) - float(balance[0]['salary'])
         update_csv(balance_path, balance)
-        return print('Salaries payed successfully')
+        return False, print('Salaries payed successfully')
     else:
-        return print('Not enough money')
+        return False, print('Not enough money')
     

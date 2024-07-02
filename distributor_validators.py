@@ -1,10 +1,14 @@
-from params import params
-from crud import read_csv
+from parametres import parametres
+from creator import folder_path
+
 import re
 
-distributor_path = f'files/{params[0]['name']}'
+path = folder_path()
+
+distributor_path = f'{path}/{parametres[7]['name']}'
 
 def validate_company_id(text, input_texts, inp):
+    from crud import read_csv
     while True:
         try:
             if input_texts.index(inp) == 0 and re.match(r'^\d{9}$|^\d{11}$', text):
@@ -76,6 +80,7 @@ def validate_distributor_phone_number(text, input_texts, inp):
             text = input(inp)
 
 def check_distributor_existence(distrib):
+    from crud import read_csv
     instance = read_csv(distributor_path)
     for data in instance:
         if data['company name'] == distrib:

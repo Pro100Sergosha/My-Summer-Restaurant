@@ -17,7 +17,3 @@ def user_printer(data):
     print(tabulate.tabulate(modified_users,headers="keys"))
 
 
-
-# asd =[{'id': '1', 'name': 'dato', 'email': '', 'password': '$2b$12$c362zLZI.iK5hqtu5Mlt5eYRyvh0w.w3jI9m6JCB9k9YG6JVxkl12', 'role': 'admin'}, {'id': '2', 'name': 'gio', 'email': '', 'password': '$2b$12$EonI32uV3RQOogGnXcjJZ.dtnGUOotuAGLrAHWRXIy7/xKOKGmZZ6', 'role': 'kitchen'}, {'id': '3', 'name': 'giorgi', 'email': '', 'password': '$2b$12$Tzr/IvnB2lJc4I7mZdQzJedoqyBjkVgYn9x3I48XqnbMghySD7yrS', 'role': 'accountant'}]
-# for i in asd:
-#     print(i["id"])

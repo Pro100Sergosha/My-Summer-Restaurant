@@ -1,5 +1,5 @@
 
-from user_input_validator import number_validator
+
 from printer import role_tasks
 
 
@@ -10,7 +10,6 @@ departments = {
         {
         'initiate restorant': [
                             'create/check necessary files',
-                            # 'check all files',
                             'change tables number',
                             'change salary percent',
                             'change margin percent',
@@ -63,33 +62,41 @@ departments = {
 
 parametres = [
     {
-        "name":"users.csv", #0
+        "name":"users.csv", 
         "headers":["id","name","email","password","role"]
 
     } ,
     {
-        'name': 'warehouse.csv', #1
+        'name': 'warehouse.csv', 
         'headers': ['id', 'product', 'measure unit', 'quantity', 'one item price']
     },
     {
-        "name":"dishes.csv", #2
+        "name":"dishes.csv", 
         "headers":["dish","product","measure unit","quantity","price"] 
     },
     {
-        "name":"orders.csv", #3
+        "name":"orders.csv", 
         "headers":["id","table","order","quantity","price","status order","status payment"]
     },
     {
-        "name":"menu_prices.csv", #4 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! es ar mchirdeba
+        "name":"menu_prices.csv", 
         "headers":["dish","price on per unit","service Fee(included)"]
     },
     {
-        'name': 'invoices.csv', #5
+        'name': 'invoices.csv', 
         'headers': ['date', 'distributor name', 'product', 'measure unit', 'quantity', 'one item price', 'total price']
     },
     {
-        "name":"done_orders.csv", #6
+        "name":"done_orders.csv", 
         "headers":["id","table","order","quantity","price","status order","status payment"]
+    },
+    {
+        'name':'distributors.csv', 
+        'headers': ['id', 'company name', 'company address', 'distributor name', 'distributor phone number']
+    },
+    {
+        'name': 'debts.csv', 
+        'headers': ['date', 'distributor name', 'unpaid', 'paid', 'income']
     },
     {
         "name":"restoraunt_parametres.csv", #-1
@@ -151,12 +158,16 @@ def tasks_(task,path):
     from registrator import users_creator, edit_user
     from kitchen import new_dish, dish_editor_deleter,give_order_to_waiter
     from waiters import get_order,give_order_kitchen,get_order_from_kitchen
+    from finances import get_report_with_date, get_warehouse_balance
+    from distributors import create_new_distributor
+    from invoices import create_new_invoice
+    from warehouse import drop_product
     while True: 
         if task in ["back"]:
             return False
         if task == "create/check necessary files":
-            function =   file_creator(path)
-            print("task complited\n")
+            function = file_creator(path)
+            print("Task complited\n")
             return False
         elif task == "change tables number":
            function =  restoraunt_parametres_changer(path, "salary")
@@ -175,23 +186,25 @@ def tasks_(task,path):
         elif task == "delete user":
             function = user_deleter(path)
         elif task == "get financial report":
-            pass 
+            function, _ = get_report_with_date()
         elif task == "get warehouse balance":
-            pass  
+            function, _ = get_warehouse_balance()
         elif task == "calculate dish cost":
             pass 
         elif task == "add new distributor":
-            pass  
+            function, _ = create_new_distributor()
         elif task == "pay debt":
-            pass 
+            from debts import pay_debt, pay_salaries
+            function, _ = pay_debt()
         elif task == "pay salaries":
-            pass  
+            from debts import pay_salaries
+            function, _ = pay_salaries()
         elif task == "add new product":
-            pass  
+            function, _ = create_new_invoice()
         elif task == "extract product":
             pass  
         elif task == "drop product":
-            pass  
+            function, _ = drop_product()
         elif task == "add new dish":
             function = new_dish(path)  
         elif task == "edit dish":
@@ -212,7 +225,6 @@ def tasks_(task,path):
             pass  
         elif task == "get payment":
             pass  
-        
         if not function:
             return False
         
@@ -220,12 +232,12 @@ def tasks_(task,path):
 
 
 def system_menu_printer(user,text,option=False):
-
+    from user_input_validator import number_validator
     while True:
         if option in ["back","sign out"]:
             return False
         if not option:
-            print("welcome to menu: ")
+            print("Welcome to menu: ")
             department_info =departments[user][0]
         else:
             
@@ -237,7 +249,7 @@ def system_menu_printer(user,text,option=False):
             tasks.append(f"{index+1}. {key}")
         while True:
             try:
-                user_input = number_validator(f"choose {text} number: ",int)
+                user_input = number_validator(f"Choose {text} number: ",int)
                 tasks = tasks[user_input-1]
                 number , task = tasks.split(".")
                 return task.strip()

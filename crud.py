@@ -1,5 +1,5 @@
 import csv
-from utils import check_create_headers
+
 
 
 
@@ -22,6 +22,7 @@ def write_csv(filename, data):
 
 
 def append_csv(filename, data):
+    from utils import check_create_headers
     headers = list(data[0].keys())
     with open(filename, "a", newline="") as file:
         write = csv.DictWriter(file,fieldnames=headers)

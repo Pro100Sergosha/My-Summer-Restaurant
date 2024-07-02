@@ -6,8 +6,7 @@ from tabulate import tabulate
 
 def new_dish(path):
     # კერძის შესაქმენლად ვიყენებ
-    # data = read_csv(f'{path}/{parametres[2]["name"]}')
-    dish_name = name_validator("enter dish name: ").title().strip()
+    dish_name = name_validator("Enter dish name: ").title().strip()
     while True:
         data = read_csv(f'{path}/{parametres[2]["name"]}')
         temp_dict ={"dish":dish_name}
@@ -51,7 +50,7 @@ def product_getter(path):
         for product in products:
             if product["product"] == ingredient:
                 return ingredient
-        print("in warehouse is not such ingredient")    
+        print("There is no such ingredient in warehouse")    
 
 
 
@@ -59,9 +58,7 @@ def quantity_getter(path,ingredient):
     # დაადგინოს არის თუ არა პროდუქტის რაოდენობა შეყვანილ რაოდენობაზე ნაკლები
     products = read_csv(f'{path}/{parametres[1]["name"]}')
     printer = [product for product in products if product["product"] == ingredient]
-    # for product in products:
-    #     if product["product"] == ingredient:
-    #         printer.append(product)
+
     print(tabulate(printer,headers="keys"))
     while True:
         for product in products:
@@ -69,7 +66,7 @@ def quantity_getter(path,ingredient):
                 quantity = number_validator("Enter quantity: ", float)
                 if quantity <= float(product["quantity"]) and quantity > 0:
                     return quantity
-                print("more than quantity")
+                print("More than quantity")
 
 
 
@@ -78,7 +75,7 @@ def unit_getter(path,ingredient):
     products = read_csv(f'{path}/{parametres[1]["name"]}')
     for product in products:
         if product["product"] == ingredient:
-                print(f"product measure unit is {product['measure unit']}")
+                print(f"Product measure unit is {product['measure unit']}")
                 return product['measure unit']
         
 
@@ -123,7 +120,7 @@ def dish_editor_deleter(path,txt,option=False):
                         quesiton = repeat_back()
                         return quesiton               
         
-        print("there is not dish in the list")
+        print("There is not dish in the list")
         return False
 
 

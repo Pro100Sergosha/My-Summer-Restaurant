@@ -1,5 +1,5 @@
 id,name,email,password,role
-1,dato,,$2b$12$NJkiOQpyWu.zMMmVtFFWduUXyATyarq/GOlO.aqGYVJta987Jvfs6,admin
-2,gio,,b'$2b$12$a7uXb/KEh6lRbDaJVJT2Su106ODmOSucvAcmleCxBIwXQcRfJLMGW',kitchen
-3,fgfdfd,,$2b$12$6T8FTO4V2hiHRX6xaqoxSuoMUr5qanORB5LyBsLaFWzPQ2fx1LEV6,waiters
-4,sdsd,,$2b$12$BEr6dcbZkzF8Z.cHdZdy3OiAk/0/2y812Z.jhO0b5QNaQi4DoaA8.,admin
+1,Sergo,Test@gmail.com,$2b$12$xrCMua7QjwqYqQaUS86QsuK6z9Oa0/y/Yzm1aUOtXq668H05G1dOi,admin
+2,Dato,test@gmail.com,$2b$12$.2klKRHklQSeIRo.bDt6Re4CEcs1b1yJWsOVWxMC6vzd3O8zooRTq,accountant
+3,Gio,,$2b$12$6A.g2JPpAjNA1wY.IAorcOUkWycL5gWMKeIV5ExL4tv3/xOFCBZNC,warehouse
+4,Lasha,,$2b$12$mHlcaF4UH5ikTMMV.BhcpuPyx3DIKN0uKJ3y1ZhqbudyZM7HuPtm6,kitchen

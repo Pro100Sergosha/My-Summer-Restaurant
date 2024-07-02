@@ -1,7 +1,7 @@
 from crud import read_csv,write_csv
 import re
 import string
-import bcrypt 
+import bcrypt
 from user_input_validator import yes_no,repeat_back,number_validator
 from parametres import parametres
 from getpass import getpass
@@ -10,7 +10,6 @@ from printer import user_printer
 
 def super_user_ceator():
     user= []
-    # "id","name","email","password","role"
     id = 1 
     name = name_validator("Enter your name: ")
     email = email_validator()
@@ -54,7 +53,6 @@ def edit_user(path):
 
 
 def id_creator(data):
-    # data = read_csv(f'{path}/{parametres[x]["name"]}')
     try:
         new_id = int(data[-1]["id"])+1
         return new_id
@@ -69,11 +67,10 @@ def name_validator(txt):
             return user_input
         print("Enter correct name")
 
-# name_validator("asdasd: ")
 
 
 def email_validator():
-    pattern = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+    pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
     while True:
         user_input = input("enter email or just press enter: ").strip()
         if user_input == "":
@@ -81,8 +78,6 @@ def email_validator():
         elif re.match(pattern,user_input):
             return user_input
         print("Enter correct email or just press enter")
-
-# print(email_validator("enter your email: "))
 
 def password_validator():
     while True:
@@ -94,11 +89,11 @@ def password_validator():
                 any(i in string.ascii_lowercase for i in password) and 
                 any(i in string.ascii_uppercase for i in password) and 
                 len(password) >=8):
-                print("strong password")
+                print("Strong password")
                 return hashing_password(password)
             else:
                 print("Your password is weak.")
-                if yes_no("would like to save it? (yes/no) ",True,False):
+                if yes_no("Would like to save it? (yes/no) ",True,False):
                     return hashing_password(password)
                 else:
                     continue
@@ -107,7 +102,7 @@ def password_validator():
 
 def role_validator(): 
     while True:
-        user_input = input("choose role: \n1.admin\n2.accountant\n3.warehouse\n4.kitchen\n5.waiters\nEnter number: ")
+        user_input = input("Choose role: \n1.admin\n2.accountant\n3.warehouse\n4.kitchen\n5.waiters\nEnter number: ")
         if user_input == "1":
             return "admin"
         elif user_input == "2":
@@ -130,8 +125,6 @@ def hashing_password(password):
     hash = bcrypt.hashpw(password.encode('utf-8') , salt) 
     return hash
 
-# password = hashing_password("asd")
-# print(password)
 
 
 def encoding_password(user_password,password):
@@ -139,8 +132,6 @@ def encoding_password(user_password,password):
     userBytes = user_password.encode('utf-8') 
     result = bcrypt.checkpw(userBytes, password.lstrip("b'").rstrip("'").encode('utf-8')) 
     return result
-
-# print(encoding_password(b'$2b$12$yPDlH1sTnCn7Dwe31aSBqOmU/aTxRCazqVtOLndifJR1dKNdH7i3i',"enter password: " ))
 
 
 def login_user(data):
@@ -150,10 +141,10 @@ def login_user(data):
         user_password = getpass(prompt = "Enter your password: ")
         for i in data:
             if encoding_password(user_password,i["password"]) and user_name == i["name"]  :
-                    print("login successful")
+                    print("Login successful")
                     return i["role"]
             
-        print("wrong user name or password")        
+        print("Wrong user name or password")        
 
 
 def login_user_role_getter(users_info):
@@ -162,4 +153,4 @@ def login_user_role_getter(users_info):
             role =  login_user(users_info)
             return role
         else:
-            sys.exit("goobye")
+            sys.exit("Goodbye!:)")

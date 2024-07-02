@@ -18,7 +18,7 @@ def number_validator(text,type):
         user_input = input(text).strip()
         if user_input.isdigit():
             return type(user_input)
-        print ("enter only numbers")
+        print ("Enter only numbers")
 
 
 
@@ -31,7 +31,7 @@ def repeat_back():
         elif user_input == "back":
             return False
         else:
-            print("invalid input")  
+            print("Invalid input")  
 
 
 
@@ -42,9 +42,9 @@ def table_quantity_validator(path):
     data = read_csv(f'{path}/{parametres[-1]["name"]}')
     while True:
         try:
-            user_input = int(input(f"table quantity: {data[0]['tables']}\nEnter table number: "))
+            user_input = int(input(f"Table quantity: {data[0]['tables']}\nEnter table number: "))
             if user_input > int(data[0]["tables"]):
-                print("more than quantity")
+                print("More than quantity")
             else:
                 question = repeat_back()
                 if not question:
