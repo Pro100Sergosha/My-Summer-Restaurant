@@ -1,10 +1,10 @@
-# Restaurant Application
+# My Summer Restaurant
 
 ## About
-The Restaurant Application is a comprehensive application designed to streamline operations and enhance efficiency within restaurants. It combines essential tools for managing orders, inventory, and customer interactions in one intuitive platform.
+This application is a comprehensive application designed to streamline operations and enhance efficiency within restaurants. It combines essential tools for managing orders, inventory, and customer interactions in one intuitive platform.
 
 ### Project Goal
-The goal of the "Restaurant Application" project is to provide restaurant owners and staff with a powerful yet user-friendly tool to manage daily operations seamlessly. From order management to warehouse tracking, invoice management, the system aims to optimize workflow and enhance customer service.
+The goal of the "My Summer Restaurant" project is to provide restaurant owners and staff with a powerful yet user-friendly tool to manage daily operations seamlessly. From order management to warehouse tracking, invoice management, the system aims to optimize workflow and enhance customer service.
 
 ### Key Features
 - **Order Management**: Create, edit, and track orders from customers with detailed order history.
