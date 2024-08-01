@@ -100,17 +100,7 @@ def validate_distributor_phone_number(text, input_texts, inp):
             print('Invalid type!\nPlease enter a valid phone number (123-45-67-89 or 123 45 67 89).')
             text = input(inp)
 
-def check_distributor_existence(distrib):
-    """
-    Checks if a distributor with the given company name already exists in the CSV file.
-    Returns True if the distributor exists, otherwise returns False.
-    """
-    from crud import read_csv
-    instance = read_csv(distributor_path)
-    for data in instance:
-        if data['company name'] == distrib:
-            return True
-    return False
+
 
 def validate_distributor_inputs(text, input_texts, inp):
     """
@@ -132,3 +122,15 @@ def validate_distributor_inputs(text, input_texts, inp):
     phone_number = validate_distributor_phone_number(text, input_texts, inp)
     if phone_number[0]:
         return phone_number
+
+def check_distributor_existence(distrib):
+    """
+    Checks if a distributor with the given company name already exists in the CSV file.
+    Returns True if the distributor exists, otherwise returns False.
+    """
+    from crud import read_csv
+    instance = read_csv(distributor_path)
+    for data in instance:
+        if data['company name'] == distrib:
+            return True
+    return False

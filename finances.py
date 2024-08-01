@@ -6,17 +6,9 @@ path = folder_path()
 
 # Paths to debts and restaurant CSV files
 debts_path = f'{path}/{parametres[6]["name"]}'
-restourant_path = f'{path}/{parametres[-1]["name"]}'
+budget_path = f'{path}/{parametres[-1]["name"]}'
 
-def get_warehouse_balance():
-    """
-    Reads the current balance from the restaurant CSV file and prints it in a tabulated format.
-    """
-    from crud import read_csv
-    warehouse = read_csv(restourant_path)
-    balance = warehouse[0]['budget']
-    balance = [[balance]]
-    return False, print(tabulate(balance, headers=['balance']))
+
 
 def get_financial_report(option):
     """
@@ -32,7 +24,7 @@ def get_financial_report(option):
         unpaid = data['unpaid']
         paid = data['paid']
         date = data['date']
-        balance = read_csv(restourant_path)[0]['budget']
+        balance = read_csv(budget_path)[0]['budget']
         unpaid_amount = float(unpaid)
         paid_amount = float(paid)
         
@@ -75,7 +67,7 @@ def get_report_with_date():
     """
     from crud import read_csv
     debts = read_csv(debts_path)
-    balance = float(read_csv(restourant_path)[0]['budget'])
+    balance = float(read_csv(budget_path)[0]['budget'])
 
     total_unpaid = 0
     total_paid = 0

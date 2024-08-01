@@ -21,21 +21,21 @@ def file_creator(path):
         check_file = os.path.exists(f"{path}/{index['name']}")
         if not check_file:
             headers = index["headers"]
-            with open(f"{path}/{index['name']}", "w") as file:
-                write = csv.DictWriter(file,fieldnames=headers)
+            with open(f"{path}/{index['name']}", "w", newline='') as file:
+                write = csv.DictWriter(file, fieldnames=headers)
                 write.writeheader()
     return False            
 
 def file_info(path):
     # ფაილების შექმნა მაქვს ცალკე ფუქციად გატანილი, რადგან რამდენიმეჯერ მჭირდება გამოძახება
     file_creator(path)
-    from crud import write_csv, read_csv
+    from crud import read_csv
     users_info = read_csv(f'{path}/{parametres[0]["name"]}')
     return users_info
 
 
 def create_admin(path):
-    from crud import write_csv, read_csv
+    from crud import write_csv
     print()
     print("Register to system")
     users = super_user_ceator()
@@ -47,11 +47,11 @@ def create_admin(path):
 def restoraunt_para_creator():
     param = []
 
-    tables = number_validator("enter table quantity: ",int)
-    salary = number_validator("enter salary: ",int)
-    margin = number_validator("enter margin percent: ",int)
-    comission = number_validator("enter comissiont percent: ",int)
-    budget = number_validator("enter budget: ", int)
+    tables = number_validator("Enter table quantity: ",int)
+    salary = number_validator("Enter salary: ",int)
+    margin = number_validator("Enter margin percent: ",int)
+    comission = number_validator("Enter comission percent: ",int)
+    budget = number_validator("Enter budget: ", int)
     param.append({"tables":tables,"salary":salary,"margin":margin,"comission":comission,"budget":budget})
   
     return param
@@ -65,7 +65,7 @@ def restoraunt_parametres_changer(path,param):
     while True:
         change = read_csv(f'{path}/{parametres[-1]["name"]}')
         print(f'{param} value: {change[0][param]} ')
-        user_input = number_validator(f"change {param} value: ",int)
+        user_input = number_validator(f"Change {param} value: ",int)
         change[0][param] = user_input
         write_csv(f'{path}/{parametres[-1]["name"]}',change)
         quesiton = repeat_back()
@@ -82,7 +82,7 @@ def user_deleter(path):
     while True:
         data = read_csv(f'{path}/{parametres[0]["name"]}')
         user_printer(data)
-        user_input =  number_validator("enter id to delete: ",str)
+        user_input =  number_validator("Enter id to delete: ",str)
         if int(user_input) > len(data):
             continue
         delete = lambda d: d['id'] == user_input

@@ -29,17 +29,21 @@ def validate_distributor(text, input_texts, inp):
     """
     from distributor_validators import check_distributor_existence
     while True:
-        if check_distributor_existence(text):
+        if check_distributor_existence(text) and input_texts.index(inp) == 1:
             return True, text
-        elif input_texts.index(inp) != 1 and check_distributor_existence(text):
-            print(f'Company with this name doesn\'t exist enter exit to exit')
-            text = input(inp)
-            if text == 'exit':
-                return 'create', 'distributor'
-            else:
-                return False, 'Distributor'
+        elif not check_distributor_existence(text) and input_texts.index(inp) == 1:
+            print(f'Company with this name doesn\'t exist \nEnter existing company name or type exit to exit')
+            while True:
+                text = input(inp)
+                if check_distributor_existence(text):
+                    return True, text
+                else:
+                    if text == 'exit':
+                        return False, 'create'
+                    else:
+                        print('Invalid input')
         else:
-            return False, 'distrib'
+            return False, 'continue iteration'
 
 def validate_measure_unit(text, input_texts, inp):
     """
@@ -109,35 +113,37 @@ def validate_invoice_inputs(text, input_texts, inp):
     """
     Validates various invoice inputs such as date, distributor, product name, measure unit, quantity, and one item price.
     """
-    date = validate_date(text, input_texts, inp)
-    if date[0] and not date in data:
-        data.append(date)
-        return date
+    try:
+        date = validate_date(text, input_texts, inp)
+        if date[0] and not date in data:
+            data.append(date)
+            return date
 
-    distributor = validate_distributor(text, input_texts, inp)
-    if distributor[0]:
-        data.append(distributor)
-        return distributor
-    elif distributor[0] == 'create':
-        return False, print('Please create new distributor and try again')
-    
-    product_name = validate_product_name(text, input_texts, inp)
-    if product_name[0] and not product_name in data:
-        data.append(product_name)
-        return product_name
-    
-    measure_unit = validate_measure_unit(text, input_texts, inp)
-    if measure_unit[0] and not measure_unit in data:
-        data.append(measure_unit)
-        return measure_unit
-    
-    quantity = validate_quantity(text, data[3], input_texts, inp)
-    if quantity[0] and not quantity in data:
-        data.append(quantity)
-        return quantity
-    
-    one_item_price = validate_one_item_input(text, input_texts, inp)
-    if one_item_price[0] and not one_item_price in data:
-        data.append(one_item_price)
-        del data[2:]
-        return one_item_price
+        distributor = validate_distributor(text, input_texts, inp)
+        if distributor[0] and not distributor in data:
+            data.append(distributor)
+            return distributor
+        elif distributor[1] == 'create' and not distributor[0]:
+            return False, print('Please create new distributor and try again')
+        product_name = validate_product_name(text, input_texts, inp)
+        if product_name[0] and not product_name in data:
+            data.append(product_name)
+            return product_name
+        
+        measure_unit = validate_measure_unit(text, input_texts, inp)
+        if measure_unit[0] and not measure_unit in data:
+            data.append(measure_unit)
+            return measure_unit
+        
+        quantity = validate_quantity(text, data[3], input_texts, inp)
+        if quantity[0] and not quantity in data:
+            data.append(quantity)
+            return quantity
+        
+        one_item_price = validate_one_item_input(text, input_texts, inp)
+        if one_item_price[0] and not one_item_price in data:
+            data.append(one_item_price)
+            del data[2:]
+            return one_item_price
+    except IndexError:
+        return False, None

@@ -28,6 +28,7 @@ departments = {
                                 ], 
         'warehouse management': [
                                 'get warehouse balance',
+                                'create new invoice',
                                 'add new product',
                                 'drop product',
                                 'back'
@@ -74,7 +75,7 @@ parametres = [
     },
     {
         'name': 'invoices.csv', #4
-        'headers': ['date', 'distributor name', 'product', 'measure unit', 'quantity', 'one item price', 'total price']
+        'headers': ['id','date', 'company name', 'product', 'measure unit', 'quantity', 'one item price', 'total price']
     },
     {
         'name':'distributors.csv', #5
@@ -82,7 +83,7 @@ parametres = [
     },
     {
         'name': 'debts.csv', #6
-        'headers': ['date', 'distributor name', 'unpaid', 'paid', 'income']
+        'headers': ['id', 'date', 'company name', 'unpaid', 'paid', 'income']
     },
     {
         "name":"add_order_to_kitchen.csv", #7
@@ -104,7 +105,7 @@ parametres = [
     
     {
         "name":"restoraunt_parametres.csv", #-1
-        "headers":["tables","salary","margin","comission","budget"]
+        "headers":['id', "tables","salary","margin","comission","budget"]
     }
     ]   
 
@@ -160,74 +161,78 @@ def tasks_(task,path):
     from registrator import users_creator, edit_user
     from kitchen import new_dish, dish_editor_deleter
     from waiters import get_order,edit_order,add_order_to_kitchen,get_orders_from_waiters,give_order_to_waiter_client,get_order_from_kitchen,get_payment,dish_total_price,get_payment
-    from finances import get_report_with_date, get_warehouse_balance
+    from finances import get_report_with_date
+    
     from distributors import create_new_distributor
-    from invoices import create_new_invoice
-    from warehouse import drop_product
+    from warehouse import drop_product, get_warehouse_balance
     while True: 
         if task in ["back"]:
             return False
         if task == "create/check necessary files":
-            function = file_creator(path)
+            func = file_creator(path)
             print("Task complited\n")
             return False
         elif task == "change tables number":
-           function =  restoraunt_parametres_changer(path, "salary")
+           func =  restoraunt_parametres_changer(path, "salary")
         elif task == "change salary percent":
-             function = restoraunt_parametres_changer(path, "salary")
+             func = restoraunt_parametres_changer(path, "salary")
         elif task == "change margin percent":
-            function = restoraunt_parametres_changer(path, "margin")
+            func = restoraunt_parametres_changer(path, "margin")
         elif task == "change commission percent":
-            function = restoraunt_parametres_changer(path, "commission")
+            func = restoraunt_parametres_changer(path, "commission")
         elif task == "change budget quantity":
-            function = restoraunt_parametres_changer(path, "budget")
+            func = restoraunt_parametres_changer(path, "budget")
         elif task == "add new user":
-           function = users_creator(path)
+           func = users_creator(path)
         elif task == "edit user":
-            function= edit_user(path)
+            func= edit_user(path)
         elif task == "delete user":
-            function = user_deleter(path)
+            func = user_deleter(path)
         elif task == "get financial report":
-            function, _ = get_report_with_date()
+            func, _ = get_report_with_date()
         elif task == "get warehouse balance":
-            function, _ = get_warehouse_balance()
+            func, _ = get_warehouse_balance()
         elif task == "calculate dish cost":
-            function = dish_total_price(path)
+            func = dish_total_price(path)
         elif task == "add new distributor":
-            function, _ = create_new_distributor()
+            func, _ = create_new_distributor()
         elif task == "pay debt":
             from debts import pay_debt, pay_salaries
-            function, _ = pay_debt()
+            func, _ = pay_debt()
         elif task == "pay salaries":
             from debts import pay_salaries
-            function, _ = pay_salaries()
+            func, _ = pay_salaries()
+        elif task == 'create new invoice':
+            from invoices import create_new_invoice
+            func, _ = create_new_invoice()
         elif task == "add new product":
-            function, _ = create_new_invoice()
+            from warehouse import add_product
+            func, _ = add_product()
         elif task == "drop product":
-            function, _ = drop_product()
+            func, _ = drop_product()
         elif task == "add new dish":
-            function = new_dish(path)  
+            func = new_dish(path)  
         elif task == "edit dish":
-            function = dish_editor_deleter(path,"edit",True)
+            func = dish_editor_deleter(path,"edit",True)
         elif task == "delete dish":
-            function = dish_editor_deleter(path,"delete")
+            func = dish_editor_deleter(path,"delete")
         elif task == "get orders":
-            function = get_orders_from_waiters(path)
+            func = get_orders_from_waiters(path)
         elif task == "give orders":
-            function = give_order_to_waiter_client(path,"Enter id to give order to waiters: ",7,8,"status order","done")
+            func = give_order_to_waiter_client(path,"Enter id to give order to waiters: ",7,8,"status order","done")
         elif task == "get order":
-            function = get_order(path)
+            func = get_order(path)
         elif task == "edit order":
-            function = edit_order(path)
+            func = edit_order(path)
         elif task == "add order to kitchen":
-            function = add_order_to_kitchen(path)   
+            func = add_order_to_kitchen(path)   
         elif task == "get order from kitchen":
-            function = get_order_from_kitchen(path)
+            func = get_order_from_kitchen(path)
         elif task == "give order to client":
-            function =  give_order_to_waiter_client(path,"Enter id to give order to costumer: ",8,9,"status payment","inprocess")
+            func =  give_order_to_waiter_client(path,"Enter id to give order to costumer: ",8,9,"status payment","inprocess")
         elif task == "get payment":
-            function = get_payment(path)
-        if not function:
+            func = get_payment(path)
+        if not func:
             return False
         
 
